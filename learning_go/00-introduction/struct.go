@@ -1,6 +1,9 @@
 package main
 
-import "fmt"
+import (
+	"fmt"
+	"unicode/utf8"
+)
 
 type student struct {
 	name    string
@@ -26,6 +29,11 @@ func main() {
 	loopGoto()
 	loopArray()
 	fizzBuzz()
+	tree()
+	countchar("asSASA ddd dsjkdsjs dk")
+	reverseString("kimathi Brian")
+	print("\n")
+	fmt.Println(averangeFloatSlice([]float64{1.2, 32.3}))
 }
 
 func simpleFOr() {
@@ -69,4 +77,46 @@ func fizzBuzz() {
 			fmt.Println(i)
 		}
 	}
+}
+
+func tree() {
+	s := "A"
+	i := 0
+start:
+	if i < 100 {
+		for j := 0; j < i; j++ {
+			fmt.Print(s)
+		}
+		fmt.Println("")
+		i++
+		goto start
+	}
+}
+
+func countchar(s string) {
+	byteslice := []byte(s)
+	fmt.Println("Bytes: ", len(byteslice))
+	byteCoubt := utf8.RuneCount(byteslice)
+	fmt.Println("Runes: ", byteCoubt)
+}
+
+func reverseString(s string) {
+	r := []rune(s)
+	copy(r[4:4+3], []rune("abc"))
+	fmt.Println(string(r))
+	for i := len(r) - 1; i >= 0; i-- {
+		fmt.Printf(string(r[i]))
+	}
+}
+
+func averangeFloatSlice(s []float64) float64 {
+	sum := 0.0
+	if len(s) == 0 {
+		return 0.0
+	}
+	for _, val := range s {
+		print(val)
+		sum += val
+	}
+	return sum / float64(len(s))
 }
