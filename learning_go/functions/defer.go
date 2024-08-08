@@ -16,7 +16,28 @@ func myfunc(arg ...int) {
 	}
 }
 
+// function that calculates the average of a float
+func floatAv(s []float64) float64 {
+	sum := 0.0
+
+	for _, val := range s {
+		sum += val
+	}
+	return sum / float64(len(s))
+}
+
+// a function that returns its (two) parameters in the right, numerical
+func twoAscNum(s int, d int) (j int, k int) {
+	if s < d {
+		return s, d
+	} else {
+		return d, s
+	}
+}
+
 func main() {
+	fmt.Println(floatAv([]float64{1.3, 40.23}))
+	fmt.Println(twoAscNum(3, 1))
 	loopA()
 	myfunc(1, 3, 53, 3)
 }

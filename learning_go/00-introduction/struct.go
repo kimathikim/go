@@ -32,8 +32,7 @@ func main() {
 	tree()
 	countchar("asSASA ddd dsjkdsjs dk")
 	reverseString("kimathi Brian")
-	print("\n")
-	fmt.Println(averangeFloatSlice([]float64{1.2, 32.3}))
+	averangeFloatSlice([]float64{1.2, 32.})
 }
 
 func simpleFOr() {
@@ -115,7 +114,6 @@ func averangeFloatSlice(s []float64) float64 {
 		return 0.0
 	}
 	for _, val := range s {
-		print(val)
 		sum += val
 	}
 	return sum / float64(len(s))
