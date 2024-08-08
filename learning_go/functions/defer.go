@@ -72,6 +72,17 @@ func arrString(arr [5]int) string {
 	return str
 }
 
+func fib(s int) {
+	fibb := make([]int, s)
+	fibb[0], fibb[1] = 1, 1
+	for i := 2; i < s; i++ {
+		if s > 1 {
+			fibb[i] = fibb[i-1] + fibb[i-2]
+		}
+	}
+	fmt.Println(fibb)
+}
+
 func main() {
 	var stack [5]int
 	fmt.Println(stack)
@@ -79,6 +90,8 @@ func main() {
 	fmt.Println(stack)
 
 	fmt.Println(arrString(stack))
+	print("\n")
+	fib(59)
 	print("\n")
 	fmt.Println(floatAv([]float64{1.3, 40.23}))
 	fmt.Println(twoAscNum(3, 1))
