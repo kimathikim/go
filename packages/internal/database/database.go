@@ -9,8 +9,8 @@ import (
 	"strconv"
 	"time"
 
+	_ "github.com/go-sql-driver/mysql"
 	_ "github.com/joho/godotenv/autoload"
-	_ "github.com/mattn/go-sqlite3"
 )
 
 // Service represents a service that interacts with a database.
@@ -29,7 +29,11 @@ type service struct {
 }
 
 var (
-	dburl      = os.Getenv("DB_URL")
+	dbname     = os.Getenv("DB_DATABASE")
+	password   = os.Getenv("DB_PASSWORD")
+	username   = os.Getenv("DB_USERNAME")
+	port       = os.Getenv("DB_PORT")
+	host       = os.Getenv("DB_HOST")
 	dbInstance *service
 )
 
@@ -39,12 +43,16 @@ func New() Service {
 		return dbInstance
 	}
 
-	db, err := sql.Open("sqlite3", dburl)
+	// Opening a driver typically will not attempt to connect to the database.
+	db, err := sql.Open("mysql", fmt.Sprintf("%s:%s@tcp(%s:%s)/%s", username, password, host, port, dbname))
 	if err != nil {
 		// This will not be a connection error, but a DSN parse error or
 		// another initialization error.
 		log.Fatal(err)
 	}
+	db.SetConnMaxLifetime(0)
+	db.SetMaxIdleConns(50)
+	db.SetMaxOpenConns(50)
 
 	dbInstance = &service{
 		db: db,
@@ -87,7 +95,6 @@ func (s *service) Health() map[string]string {
 	if dbStats.OpenConnections > 40 { // Assuming 50 is the max for this example
 		stats["message"] = "The database is experiencing heavy load."
 	}
-
 	if dbStats.WaitCount > 1000 {
 		stats["message"] = "The database has a high number of wait events, indicating potential bottlenecks."
 	}
@@ -108,6 +115,6 @@ func (s *service) Health() map[string]string {
 // If the connection is successfully closed, it returns nil.
 // If an error occurs while closing the connection, it returns the error.
 func (s *service) Close() error {
-	log.Printf("Disconnected from database: %s", dburl)
+	log.Printf("Disconnected from database: %s", dbname)
 	return s.db.Close()
 }
