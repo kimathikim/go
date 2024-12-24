@@ -7,10 +7,9 @@ services:
       MYSQL_PASSWORD: ${DB_PASSWORD}
       MYSQL_ROOT_PASSWORD: ${DB_ROOT_PASSWORD}
     ports:
-      - "${DB_PORT}:3306"
+      - "${DB_PORT}:3304"
     volumes:
       - mysql_volume:/var/lib/mysql
 
 volumes:
   mysql_volume:
-

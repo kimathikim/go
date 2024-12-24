@@ -22,3 +22,18 @@ func main(){
 myfunc()
 }
 ```
+## Defer
+
+They are written read in `LIFO` format this make it easier to manage resources
+
+## Variadic functions
+> This are functions that take a variable number of parameter
+
+```go 
+// How they are defined
+func function(arg ...int) {
+  // do something here
+}
+```
+
+The arg is a slice of integers

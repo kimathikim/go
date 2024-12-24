@@ -35,7 +35,7 @@ docker-down:
 
 # Test the application
 test:
-	@echo "Testing..."
+	@sudo echo "Testing..."
 	@go test ./... -v
 
 

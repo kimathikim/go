@@ -1,4 +1,4 @@
-package main
+pckage main
 
 import (
 	"fmt"
@@ -6,7 +6,6 @@ import (
 )
 
 func main() {
-
 	server := server.NewServer()
 
 	err := server.ListenAndServe()
